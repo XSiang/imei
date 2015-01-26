@@ -1,0 +1,19 @@
+<% if @department.errors.any? %>
+<% @department.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.label :name, '部門名稱' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.text_field :name, {placeholder: '輸入名稱', class: 'form-control'} %>
+	</div>
+</div>
+
+<br>

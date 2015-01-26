@@ -1,0 +1,44 @@
+<% if @product.errors.any? %>
+<% @product.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.label :name, '產品' %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.label :capacity, '容量' %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.label :firm_id, '廠商' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.text_field :name, {placeholder: '輸入名稱', class: 'form-control'} %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.text_field :capacity, {placeholder: '輸入數字', class: 'form-control'} %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.collection_select :firm_id, Firm.all, :id, :name, {include_blank: '請選擇'}, {class: 'form-control'} %>
+	</div>
+</div>
+
+<div class="motion_div">
+	<%= f.label :motions, '動作' %>
+	<div class="row">
+
+		<%= f.collection_check_boxes :motion_ids, Motion.all, :id, :name do |motion| %>
+		<div class="col-xs-2">
+			<%= motion.label(class: 'btn btn-default', style: 'width:100%;') {motion.check_box + ' ' + motion.text} %>
+		</div>
+		<% end %>
+
+	</div>
+</div>
+
+<br>

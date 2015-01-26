@@ -1,0 +1,25 @@
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>部門</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<% @departments.each do |department| %>
+		<tr>
+			<td>
+				<%= department.name %>
+			</td>
+			<td>
+				<%= link_to '編輯', edit_department_path(department), class: 'btn btn-default' %>
+				<%= button_to '刪除', department_path(department), method: :delete, data: {confirm: '您確定要刪除 ' + department.name + ' ?'}, class: 'btn btn-default' %>
+			</td>
+		</tr>
+		<% end %>
+		
+	</tbody>
+</table>
+
+<%= link_to '新增', new_department_path, class: 'btn btn-default' %>

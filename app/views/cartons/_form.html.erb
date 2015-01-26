@@ -1,0 +1,29 @@
+<% if @carton.errors.any? %>
+<% @carton.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.label :name, '紙箱' %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.label :products, '產品' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.text_field :name, {placeholder: '輸入名稱', class: 'form-control'} %>
+	</div>
+	
+	<%= f.collection_check_boxes :product_ids, Product.all, :id, :name do |product| %>
+	<div class="col-xs-2" style="margin-bottom:30px">
+		<%= product.label(class: 'btn btn-default text-left', style: 'width:100%;') {product.check_box + ' ' + product.text} %>
+	</div>
+	<% end %>
+	
+</div>
+
+<br>

@@ -1,0 +1,9 @@
+<%= form_for @motion, url: motions_path do |f| %>
+
+<%= render partial: 'form', locals: {f: f} %>
+<div class="btn-group" role="group">
+	<%= f.submit '新增', {class: 'btn btn-default'} %>
+	<%= link_to '取消', motions_path, {class: 'btn btn-default'} %>
+</div>
+
+<% end %>

@@ -1,0 +1,9 @@
+<%= form_for @employee, url: employee_path(@employee) do |f| %>
+
+<%= render partial: 'form', locals: {f: f} %>
+<div class="btn-group" role="group">
+	<%= f.submit '更新', {class: 'btn btn-default'} %>
+	<%= link_to '取消', employees_path, class: 'btn btn-default' %>
+</div>
+
+<% end %>

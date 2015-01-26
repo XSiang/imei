@@ -1,0 +1,25 @@
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>廠商</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<% @firms.each do |firm| %>
+		<tr>
+			<td>
+				<%= firm.name %>
+			</td>
+			<td>
+				<%= link_to '編輯', edit_firm_path(firm), class: 'btn btn-default' %>
+				<%= button_to '刪除', firm_path(firm), method: :delete, data: {confirm: '您確定要刪除 ' + firm.name + ' ?'}, class: 'btn btn-default' %>
+			</td>
+		</tr>
+		<% end %>
+
+	</tbody>
+</table>
+
+<%= link_to '新增', new_firm_path, class: 'btn btn-default' %>

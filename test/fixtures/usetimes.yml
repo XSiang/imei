@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: MyString
+  start_time: 2015-01-08 11:06:47
+  end_time: 2015-01-08 11:06:47
+  dailyreport_id: 1
+
+two:
+  employee: MyString
+  start_time: 2015-01-08 11:06:47
+  end_time: 2015-01-08 11:06:47
+  dailyreport_id: 1

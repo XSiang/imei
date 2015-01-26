@@ -1,0 +1,35 @@
+<table class="table tabel-hover">
+	<thead>
+		<tr>
+			<th>產品</th>
+			<th>批號</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<% @batchnumbers.each do |batchnumber| %>
+
+		<% if batchnumber.product.presence == true %>
+
+		<tr>
+			<td>
+				<%= batchnumber.product.name %>
+			</td>
+			<td>
+				<%= batchnumber.name %>
+			</td>
+			<td>
+				<%= link_to '編輯', edit_batchnumber_path(batchnumber), class: 'btn btn-default' %>
+				<%= button_to '刪除', batchnumber_path(batchnumber), method: :delete, data: {confirm: '您確定要刪除 ' + batchnumber.name + ' 的批號 ?'}, class: 'btn btn-default' %>
+			</td>
+		</tr>
+
+		<% end %>
+
+		<% end %>
+
+	</tbody>
+</table>
+
+<%= link_to '新增', new_batchnumber_path, class: 'btn btn-default' %>

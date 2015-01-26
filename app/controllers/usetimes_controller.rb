@@ -1,0 +1,2 @@
+class UsetimesController < ApplicationController
+end

@@ -1,0 +1,100 @@
+<ul class="nav nav-tabs nav-justified">
+	<li role="presentation" class="active">
+		<a href="#product" aria-controls="product" role="tab" data-toggle="tab">產品</a>
+	</li>
+	<li role="presentation">
+		<a href="#productHide" aria-controls="productHide" role="tab" data-toggle="tab">停止生產</a>
+	</li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane fade in active" id="product">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>產品</th>
+					<th>容量</th>
+					<th>廠商</th>
+					<th>動作</th>
+					<th>紙箱</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% @product.each do |product| %>
+				<tr>
+					<td>
+						<%= product.name %>
+					</td>
+					<td>
+						<%= product.capacity %>
+					</td>
+					<td>
+						<%= product.firm.try(:name) %>
+					</td>
+					<td>
+						<%= product.motions.pluck(:name).join('、') %>
+					</td>	
+					<td>
+						<%= product.cartons.pluck(:name).join('、') %>
+					</td>
+					<td>
+						<%= link_to '編輯', edit_product_path(product), class: 'btn btn-default' %>
+						<%= link_to '結束生產', {action: :reverse, id: product}, class: 'btn btn-default' %>
+					</td>
+				</tr>
+				<% end %>
+
+			</tbody>
+		</table>
+
+		<%= link_to '新增', new_product_path, class: 'btn btn-default' %>
+		
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="productHide">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>產品</th>
+					<th>容量</th>
+					<th>廠商</th>
+					<th>動作</th>
+					<th>紙箱</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% @product_hide.each do |product| %>
+				<tr>
+					<td>
+						<%= product.name %>
+					</td>
+					<td>
+						<%= product.capacity %>
+					</td>
+					<td>
+						<%= product.firm.try(:name) %>
+					</td>
+					<td>
+						<% product.motions.order('id').each do |motion| %>
+						<%= motion.name %>
+						<% end %>
+					</td>	
+					<td>
+						<% product.cartons.order('id').each do |carton| %>
+						<%= carton.name %>
+						<% end %>
+					</td>
+					<td>
+						<%= link_to '恢復生產', {action: :reverse, id: product}, class: 'btn btn-default' %>
+						<%= button_to '刪除', product_path(product), method: :delete, data: {confirm: "注意：\n產品一經刪除，所有建立過的關連資料也會一併銷毀！\n\n您確定要刪除 " + product.name + " ?"}, class: 'btn btn-default' %>
+					</td>
+				</tr>
+				<% end %>
+
+			</tbody>
+		</table>
+	</div>
+</div>

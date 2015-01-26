@@ -1,0 +1,24 @@
+<% if @motion.errors.any? %>
+<% @motion.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.label :name, '動作' %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.label :department_id, '部門' %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.text_field :name, {placeholder: '輸入名稱', class: 'form-control'} %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.collection_select :department_id, Department.all, :id, :name, {include_blank: '請選擇'}, {class: 'form-control'} %>
+	</div>
+</div>
+
+<br>

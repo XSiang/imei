@@ -1,0 +1,65 @@
+<ul class="nav nav-tabs nav-justified">
+	<li role="presentation" class="active">
+		<a href="#sample" aria-controls="sample" role="tab" data-toggle="tab">樣品種類</a>
+	</li>
+	<li role="presentation">
+		<a href="#sampleHide" aria-controls="sampleHide" role="tab" data-toggle="tab">停止使用</a>
+	</li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane fade in active" id="sample">
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>樣品</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% @sample.each do |sample| %>
+				<tr>
+					<td>
+						<%= sample.name %>
+					</td>
+					<td>
+						<%= link_to '編輯', edit_sample_path(sample), class: 'btn btn-default' %>
+						<%= link_to '停止使用', {action: :reverse, id: sample}, class: 'btn btn-default' %>
+					</td>
+				</tr>
+				<% end %>
+
+			</tbody>
+		</table>
+
+		<%= link_to '新增', new_sample_path, class: 'btn btn-default' %>
+
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="sampleHide">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>樣品</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% @sample_hide.each do |sample| %>
+				<tr>
+					<td>
+						<%= sample.name %>
+					</td>
+					<td>
+						<%= link_to '恢復使用', {action: :reverse, id: sample}, class: 'btn btn-default' %>
+						<%= button_to '刪除', sample_path(sample), method: :delete, data: {confirm: "注意：\n樣品種類一經刪除，所有建立過的關連資料也會一併銷毀！\n\n您確定要刪除 " + sample.name + " ?"}, class: 'btn btn-default' %>
+					</td>
+				</tr>
+				<% end %>
+
+			</tbody>
+		</table>
+	</div>
+</div>

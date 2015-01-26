@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  use_date: 2015-01-13
+  department_id: 1
+  batchnumber_id: 1
+  amount: 1
+  motion: MyString
+
+two:
+  use_date: 2015-01-13
+  department_id: 1
+  batchnumber_id: 1
+  amount: 1
+  motion: MyString

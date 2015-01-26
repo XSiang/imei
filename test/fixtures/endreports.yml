@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firm: MyString
+  product: MyString
+  batch_number: MyString
+  start_date: 2014-12-30 15:09:24
+  end_date: 2014-12-30 15:09:24
+  total_time: 1.5
+  amount: 1
+
+two:
+  firm: MyString
+  product: MyString
+  batch_number: MyString
+  start_date: 2014-12-30 15:09:24
+  end_date: 2014-12-30 15:09:24
+  total_time: 1.5
+  amount: 1

@@ -1,0 +1,25 @@
+<% if @batchnumber.errors.any? %>
+<% @batchnumber.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.label :product_id, '產品' %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.label :name, '批號' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+		<%= f.collection_select :product_id, Product.all, :id, :name, {include_blank: '請選擇'}, {class: 'form-control'} %>
+	</div>
+	<div class="col-xs-2">
+		<%= f.text_field :name, {placeholder: '輸入批號', class: 'form-control'} %>
+	</div>
+</div>
+
+<br>

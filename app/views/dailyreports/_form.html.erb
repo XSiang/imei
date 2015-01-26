@@ -1,0 +1,121 @@
+<script type="text/javascript">
+
+$(function(){
+	$("#workspace").hide();
+	$(".choose").hide();
+	if (<%= @dailyreport.id? %> == false) {
+		$(".choose").show();
+	$(".choose-btn").click(function(){
+		$(".choose").hide("slow");
+		$("#workspace").show("slow");
+	});
+	} else {
+		$("#workspace").show();
+	};
+
+	var arr = [];
+	
+		$(".choose").on("ajax:success", function(event, data) {
+			$("#dailyreport_batchnumber_id").val(data.id);
+
+		//將選中產品，預設動作打勾，並送入字串到 Text_field
+		$.each(data.motion_id, function(i, val){
+			$(".motion_btn input[value=" + val + "]").prop("checked", true);
+		});
+		$(".motion_btn :checked").each(function(){	
+			arr.push($(this).val());
+			$("#dailyreport_motion").val(arr.join('、'));
+		});
+
+	});
+	
+
+	$(".motion_btn input").click(function(){
+		if ($.inArray($(this).val(), arr) == -1) {
+			arr.push($(this).val());
+		} else {
+			var itemtoRemove = $(this).val();
+			arr.splice($.inArray(itemtoRemove, arr),1);
+		};
+		$("#dailyreport_motion").val(arr.sort().join('、'));
+	});
+});
+
+</script>
+
+<% if @dailyreport.errors.any? %>
+<% @dailyreport.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end %>
+
+<div class="row text-center choose">
+	<h1>選擇您的作業產品</h1>
+	<hr>
+	<div class="col-xs-12">
+
+		<% @batchnumbers.each do |batchnumber| %>
+		<%= link_to batchnumber.product.try(:name) + '：' + batchnumber.name, {action: :convey, id: batchnumber}, remote: true, data: {type: :json}, class: 'btn btn-default choose-btn' %>
+		<% end %>
+
+	</div>
+</div>
+
+<div id="workspace">
+	<div class="row">
+		<div class="col-xs-2">
+			<%= f.label :use_date, '日期' %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.label :amount, '數量' %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.label :department_id, '部門' %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.label :batchnumber_id, '批號' %>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row">
+		<div class="col-xs-2">
+			<%= f.date_select :use_date, {use_month_numbers: true}, {class: 'form-control', style: 'width:auto; margin-right:5px; float:left'} %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.text_field :amount, {placeholder: '輸入數字', class: 'form-control'} %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.collection_select :department_id, Department.all, :id, :name, {include_blank: '請選擇'}, {class: 'form-control'} %>
+		</div>
+		<div class="col-xs-2">
+			<%= f.collection_select :batchnumber_id, Batchnumber.all, :id, :name, {include_blank: '請選擇'}, {class: 'form-control'} %>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row motion">
+		<div class="col-xs-12 text-center">
+			<h1>
+				<%= f.label :motion, '動作' %>
+			</h1>
+		</div>
+
+		<div class="col-xs-12 text-center">
+			<%= f.text_field :motion, {class: 'form-control'} %>
+		</div>
+
+		<% @motions.where(:department_id => '1').each do |motion| %>
+		<div class="col-xs-2">
+			<label class="btn btn-default motion_btn" style="width:100%;">
+				<input type="checkbox" value="<%= motion.id %>"> <%= motion.name %>
+			</label>
+		</div>
+		<% end %>
+
+	</div>
+</div>
+
+<br>

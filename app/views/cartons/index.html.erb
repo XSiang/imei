@@ -1,0 +1,31 @@
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>紙箱</th>
+			<th>產品</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<% @cartons.each do |carton| %>
+		<tr>
+			<td>
+				<%= carton.name %>
+			</td>
+			<td>
+				<% carton.products.order('product_id').each do |product| %>
+				<%= product.name %>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to '編輯', edit_carton_path(carton), class: 'btn btn-default' %>
+				<%= button_to '刪除', carton_path(carton), method: :delete, data: {confirm: '您確定要刪除 ' + carton.name + ' ?'}, class: 'btn btn-default' %>
+			</td>
+		</tr>
+		<% end %>
+
+	</tbody>
+</table>
+
+<%= link_to '新增', new_carton_path, class: 'btn btn-default' %>
